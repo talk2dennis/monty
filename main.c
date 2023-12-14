@@ -3,8 +3,8 @@
 
 char *split(char *str)
 {
-	int i = 0, len = strlen(str), op = 0, cd = 0;
-	char opcode[100], instruct[100], *instruction = NULL;
+	int i = 0, len = strlen(str), instruct[100], op = 0, cd = 0;
+	char opcode[100], *instruction = NULL;
 
 	for (i = 0; i < len; i++)
 	{
@@ -26,6 +26,7 @@ char *split(char *str)
 	instruction = malloc(sizeof(char) * strlen(opcode));
 	if (instruction == NULL)
 	{
+		printf("%d\n", instruct[0]);
 		fprintf(stderr, "Memory allocation error\n");
 		exit(EXIT_FAILURE);
 	}
@@ -42,7 +43,7 @@ char *split(char *str)
 
 int main(int argc, char **argv)
 {
-	void (*opcodes)(stack_t *stack, int line);
+	void (*f)(stack_t *stack, int line);
 	char buffer[1024], *opcode = NULL;
 	FILE *file = NULL;
 	int line = 0;
@@ -58,8 +59,8 @@ int main(int argc, char **argv)
 		line++;
 		printf("%d: %s", line, buffer);
 		opcode = split(buffer);
-		opcodes = opcodes(opcode);
-		opcodes(stack, line);
+		f = opcodes(opcode);
+		f(stack, line);
 	}
 	fclose(file);
 	return(EXIT_SUCCESS);
