@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
 	file = check_input(argc, argv);
 	init_glo(file);
-	while (fgets(glo_var.buffer, sizeof(glo_var.buffer), file) != NULL) 
+	while (fgets(glo_var.buffer, sizeof(glo_var.buffer), file) != NULL)
 	{
 		glo_var.line++;
 		lines[0] = _strtok(glo_var.buffer, " \t\n");

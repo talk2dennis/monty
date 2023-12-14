@@ -68,12 +68,19 @@ void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line);
 void free_glo(void);
 void _push(stack_t **stack, unsigned int line);
 void _pall(stack_t **stack, unsigned int line);
-void _pint(stack_t **doubly, unsigned int cline);
+void _pint(stack_t **stack, unsigned int line);
 void free_dlistint(stack_t *head);
 stack_t *add_dnodeint(stack_t **head, const int n);
 stack_t *add_dnodeint_end(stack_t **head, const int n);
 char *_strtok(char *s, char *d);
 int _strch(char *s, char c);
+void _pop(stack_t **stack, unsigned int line);
+void _swap(stack_t **stack, unsigned int line);
+void _queue(stack_t **stack, unsigned int line);
+void _stack(stack_t **stack, unsigned int line);
+void _add(stack_t **stack, unsigned int line);
+void _nop(stack_t **stack, unsigned int line);
+void _sub(stack_t **stack, unsigned int line);
 
 
 #endif

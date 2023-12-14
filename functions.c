@@ -8,23 +8,23 @@
  * @cline: line number
  * Return: no return
  */
-void _push(stack_t **doubly, unsigned int cline)
+void _push(stack_t **stack, unsigned int line)
 {
-	int n, j;
+	int i, n;
 
 	if (glo_var.arg == NULL)
 	{
-		fprintf(stderr, "L%u: ", cline);
+		fprintf(stderr, "L%u: ", line);
 		fprintf(stderr, "usage: push integer\n");
 		free_glo();
 		exit(EXIT_FAILURE);
 	}
 
-	for (j = 0; glo_var.arg[j] != '\0'; j++)
+	for (i = 0; glo_var.arg[i] != '\0'; i++)
 	{
-		if (!isdigit(glo_var.arg[j]) && glo_var.arg[j] != '-')
+		if (!isdigit(glo_var.arg[i]) && glo_var.arg[i] != '-')
 		{
-			fprintf(stderr, "L%u: ", cline);
+			fprintf(stderr, "L%u: ", line);
 			fprintf(stderr, "usage: push integer\n");
 			free_glo();
 			exit(EXIT_FAILURE);
@@ -34,9 +34,9 @@ void _push(stack_t **doubly, unsigned int cline)
 	n = atoi(glo_var.arg);
 
 	if (glo_var.lifo == 1)
-		add_dnodeint(doubly, n);
+		add_dnodeint(stack, n);
 	else
-		add_dnodeint_end(doubly, n);
+		add_dnodeint_end(stack, n);
 }
 
 /**
@@ -45,17 +45,17 @@ void _push(stack_t **doubly, unsigned int cline)
  * @cline: line numbers
  * Return: void
  */
-void _pall(stack_t **doubly, unsigned int cline)
+void _pall(stack_t **stack, unsigned int line)
 {
-	stack_t *aux;
-	(void)cline;
+	stack_t *tmp;
+	(void) line;
 
-	aux = *doubly;
+	tmp = *stack;
 
-	while (aux)
+	while (tmp)
 	{
-		printf("%d\n", aux->n);
-		aux = aux->next;
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
 	}
 }
 
@@ -66,19 +66,19 @@ void _pall(stack_t **doubly, unsigned int cline)
  * @cline: line number
  * Return: no return
  */
-void _pint(stack_t **doubly, unsigned int cline)
+void _pint(stack_t **stack, unsigned int line)
 {
-	(void)cline;
+	(void) line;
 
-	if (*doubly == NULL)
+	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%u: ", cline);
+		fprintf(stderr, "L%u: ", line);
 		fprintf(stderr, "can't pint, stack empty\n");
 		free_glo();
 		exit(EXIT_FAILURE);
 	}
 
-	printf("%d\n", (*doubly)->n);
+	printf("%d\n", (*stack)->n);
 }
 
 
@@ -124,6 +124,14 @@ char *_strtok(char *s, char *d)
 	}
 	return (NULL);
 }
+
+
+/**
+ * _strch - A function that checks if a char in a string
+ * @s: poiter to string
+ * @c: char
+ * Return: (1) if found (0) otherwise
+ */
 
 int _strch(char *s, char c)
 {
