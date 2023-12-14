@@ -6,22 +6,21 @@
  * Return: Returns a pointer to functions
  */
 
-void (*opcodes(char *opcode))(stack_t *stack, int line)
+void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line_number)
 {
-	int i;
-	instruction_t instructions[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
+	instruction_t instruct[] = {
+		{"push", _push},
+		{"pall", _pall},
+		{"pint", _pint},
 		{NULL, NULL}
 	};
+	int i;
 
-	for (i = 0; instructon[i].opcode; i++)
-        {
-                if (strcmp(opcode, instructions[i].opcode) == 0)
-                        break;
-        }
+	for (i = 0; instruct[i].opcode; i++)
+	{
+		if (strcmp(instruct[i].opcode, opcode) == 0)
+			break;
+	}
 
-	return (instructions[i].f);
-
+	return (instruct[i].f);
 }

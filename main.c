@@ -1,67 +1,94 @@
 #include "monty.h"
-#include <string.h>
 
-char *split(char *str)
+global_t glo_var;
+
+/**
+ * free_glo - Free memory from the global variables
+ * Return: void
+ */
+void free_glo(void)
 {
-	int i = 0, len = strlen(str), instruct[100], op = 0, cd = 0;
-	char opcode[100], *instruction = NULL;
-
-	for (i = 0; i < len; i++)
-	{
-		if ((str[i] >= 'A' && str[i] <= 'Z')
-				|| (str[i] >= 'a' && str[i] <= 'z'))
-		{
-			opcode[op] = str[i];
-			op++;
-		}
-		else if (str[i] >= '0' && str[i] <= '9')
-		{
-			instruct[cd] = str[i];
-			cd++;
-		}
-	}
-	opcode[op] = '\0';
-	instruct[cd] = '\0';
-	
-	instruction = malloc(sizeof(char) * strlen(opcode));
-	if (instruction == NULL)
-	{
-		printf("%d\n", instruct[0]);
-		fprintf(stderr, "Memory allocation error\n");
-		exit(EXIT_FAILURE);
-	}
-	strcpy(opcode, instruction);
-	return (instruction);
+	free_dlistint(glo_var.head);
+	fclose(glo_var.file);
 }
 
 /**
- * main - The main entrance to our function monty
- * @argc: int
- * @argv: pointer to the list of command argurment
- * Return: (1) on success otherwise (-1)
+ * init_glo - Initializes the global variables for the monty
+ * @file: pointer to file
+ * Return: void
+ */
+void init_glo(FILE *file)
+{
+	glo_var.lifo = 1;
+	glo_var.line = 0;
+	glo_var.arg = NULL;
+	glo_var.head = NULL;
+	glo_var.file = file;
+}
+
+/**
+ * check_input - checks the input provided
+ * @argc: int count
+ * @argv: pointer to argurment
+ * Return: pointer to file
  */
 
-int main(int argc, char **argv)
+FILE *check_input(int argc, char *argv[])
 {
-	void (*f)(stack_t *stack, int line);
-	char buffer[1024], *opcode = NULL;
-	FILE *file = NULL;
-	int line = 0;
+	FILE *file;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file = fopen (argv[1], "r");
-	while (fgets(buffer, sizeof(buffer), file) != NULL)
+
+	file = fopen(argv[1], "r");
+
+	if (file == NULL)
 	{
-		line++;
-		printf("%d: %s", line, buffer);
-		opcode = split(buffer);
-		f = opcodes(opcode);
-		f(stack, line);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
 	}
-	fclose(file);
-	return(EXIT_SUCCESS);
+
+	return (file);
+}
+
+/**
+ * main - Entry point to our program monty
+ * @argc: int count
+ * @argv: pointer to argurment
+ * Return: (0) on success or (1) on failure
+ */
+
+int main(int argc, char *argv[])
+{
+	void (*f)(stack_t **stack, unsigned int line);
+	FILE *file;
+	char *lines[2] = {NULL, NULL};
+
+	file = check_input(argc, argv);
+	init_glo(file);
+	while (fgets(glo_var.buffer, sizeof(glo_var.buffer), file) != NULL) 
+	{
+		glo_var.line++;
+		lines[0] = _strtok(glo_var.buffer, " \t\n");
+		if (lines[0] && lines[0][0] != '#')
+		{
+			f = get_opcodes(lines[0]);
+			if (!f)
+			{
+				fprintf(stderr, "L%u: ", glo_var.line);
+				fprintf(stderr, "unknown instruction %s\n", lines[0]);
+				free_glo();
+				exit(EXIT_FAILURE);
+			}
+			glo_var.arg = _strtok(NULL, " \t\n");
+			f(&glo_var.head, glo_var.line);
+		}
+	}
+
+	free_glo();
+
+	return (EXIT_SUCCESS);
 }

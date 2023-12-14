@@ -1,6 +1,16 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <ctype.h>
+
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -31,18 +41,39 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t *stack;
+/**
+ * struct globals - global functions
+ * @lifo: is stack or queue
+ * @cont: line count
+ * @arg: data to store
+ * @head: pointer to doubly linked list
+ * @fd: file descriptor
+ * @buffer: opcode command
+ */
 
-extern instruction_t *instructions[];
+typedef struct globals
+{
+	int lifo;
+	unsigned int line;
+	char  *arg;
+	stack_t *head;
+	FILE *file;
+	char buffer[100];
+} global_t;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+extern global_t glo_var;
 
-void (*opcodes(char *opcode))(stack_t *stack, int line);
-void push(stack_t *stack, int line);
-void pint(stack_t *stack, int line);
-void pall(stack_t *stack, int line);
+
+void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line);
+void free_glo(void);
+void _push(stack_t **stack, unsigned int line);
+void _pall(stack_t **stack, unsigned int line);
+void _pint(stack_t **doubly, unsigned int cline);
+void free_dlistint(stack_t *head);
+stack_t *add_dnodeint(stack_t **head, const int n);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+char *_strtok(char *s, char *d);
+int _strch(char *s, char c);
 
 
 #endif
