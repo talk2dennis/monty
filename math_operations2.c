@@ -15,7 +15,7 @@ void _div(stack_t **stack, unsigned int line)
 		;
 	if (i < 2)
 	{
-		fprintf(stderr, "L%u: can't divide, stack too short\n", line);
+		fprintf(stderr, "L%u: can't div, stack too short\n", line);
 		free_glo();
 		exit(EXIT_FAILURE);
 	}
@@ -40,7 +40,7 @@ void _mul(stack_t **stack, unsigned int line)
 		;
 	if (i < 2)
 	{
-		fprintf(stderr, "L%u: can't multiply, stack too short\n", line);
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line);
 		free_glo();
 		exit(EXIT_FAILURE);
 	}
