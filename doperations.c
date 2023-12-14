@@ -33,7 +33,7 @@ void _swap(stack_t **stack, unsigned int line)
 	int i;
 	stack_t *tmp = *stack;
 
-	for (i =0; tmp != NULL; tmp = tmp->next, i++)
+	for (i = 0; tmp != NULL; tmp = tmp->next, i++)
 		;
 
 	if (i < 2)

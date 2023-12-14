@@ -14,7 +14,7 @@ void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line)
 		{"pint", _pint},
 		{"nop", _nop},
 		{"queue", _queue},
-                {"stack", _stack},
+		{"stack", _stack},
 		{"pop", _pop},
 		{"swap", _swap},
 		{"queue", _queue},
