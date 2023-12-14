@@ -19,6 +19,12 @@ void _div(stack_t **stack, unsigned int line)
 		free_glo();
 		exit(EXIT_FAILURE);
 	}
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line);
+		free_glo();
+		exit(EXIT_FAILURE);
+	}
 	tmp = (*stack)->next;
 	tmp->n /= (*stack)->n;
 	_pop(stack, line);
