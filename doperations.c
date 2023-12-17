@@ -33,7 +33,7 @@ void _swap(stack_t **stack, unsigned int line)
 	int i;
 	stack_t *tmp = *stack;
 
-	for (i =0; tmp != NULL; tmp = tmp->next, i++)
+	for (i = 0; tmp != NULL; tmp = tmp->next, i++)
 		;
 
 	if (i < 2)
@@ -83,4 +83,27 @@ void _stack(stack_t **stack, unsigned int line)
 
 	glo_var.lifo = 1;
 }
+
+
+void _pchar(stack_t **stack, unsigned int line)
+{
+        (void) line;
+
+        if (*stack == NULL)
+        {
+                fprintf(stderr, "L%u: ", line);
+                fprintf(stderr, "can't pchar, stack empty\n");
+                free_glo();
+                exit(EXIT_FAILURE);
+        }
+	if ((*stack)->n < 0 || (*stack)->n >= 128)
+	{
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line);
+		free_glo();
+		exit(EXIT_FAILURE);
+	}
+
+        printf("%c\n", (*stack)->n);
+}
+
 
