@@ -81,14 +81,14 @@ void _nop(stack_t **stack, unsigned int line)
 void _pstr(stack_t **stack, unsigned int line)
 {
 	stack_t *tmp;
-        (void) line;
-       
+	(void) line;
+
 	tmp = *stack;
-        while (tmp && tmp->n > 0 && (*stack)->n < 128)
-        {
+	while (tmp && tmp->n > 0 && (*stack)->n < 128)
+	{
 		printf("%c", tmp->n);
 		tmp = tmp->next;
-        }
+	}
 
 	printf("\n");
 }

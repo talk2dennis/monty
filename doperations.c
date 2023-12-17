@@ -86,6 +86,7 @@ void _stack(stack_t **stack, unsigned int line)
 
 /**
  * _pchar - A function that prints the a char
+ * @stack: stack_t list
  * @line: int
  * Return: void
  */
