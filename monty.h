@@ -81,7 +81,13 @@ void _stack(stack_t **stack, unsigned int line);
 void _add(stack_t **stack, unsigned int line);
 void _nop(stack_t **stack, unsigned int line);
 void _sub(stack_t **stack, unsigned int line);
+<<<<<<< HEAD
 void _pchar(stack_t **stack, unsigned int line);
 
+=======
+void _mod(stack_t **stack, unsigned int line);
+void _div(stack_t **stack, unsigned int line);
+void _mul(stack_t **stack, unsigned int line);
+>>>>>>> 8218c82f17d6c9da6ea0821987e6e2d133665587
 
 #endif
