@@ -20,13 +20,10 @@ void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line)
 		{"queue", _queue},
 		{"add", _add},
 		{"sub", _sub},
-<<<<<<< HEAD
 		{"pchar", _pchar},
-=======
 		{"mul", _mul},
 		{"mod", _mod},
 		{"div", _div},
->>>>>>> 8218c82f17d6c9da6ea0821987e6e2d133665587
 		{NULL, NULL}
 	};
 	int i;
