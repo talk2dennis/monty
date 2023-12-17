@@ -84,18 +84,23 @@ void _stack(stack_t **stack, unsigned int line)
 	glo_var.lifo = 1;
 }
 
+/**
+ * _pchar - A function that prints the a char
+ * @line: int
+ * Return: void
+ */
 
 void _pchar(stack_t **stack, unsigned int line)
 {
-        (void) line;
+	(void) line;
 
-        if (*stack == NULL)
-        {
-                fprintf(stderr, "L%u: ", line);
-                fprintf(stderr, "can't pchar, stack empty\n");
-                free_glo();
-                exit(EXIT_FAILURE);
-        }
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: ", line);
+		fprintf(stderr, "can't pchar, stack empty\n");
+		free_glo();
+		exit(EXIT_FAILURE);
+	}
 	if ((*stack)->n < 0 || (*stack)->n >= 128)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", line);
@@ -103,7 +108,7 @@ void _pchar(stack_t **stack, unsigned int line)
 		exit(EXIT_FAILURE);
 	}
 
-        printf("%c\n", (*stack)->n);
+	printf("%c\n", (*stack)->n);
 }
 
 

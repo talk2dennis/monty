@@ -21,6 +21,7 @@ void (*get_opcodes(char *opcode))(stack_t **stack, unsigned int line)
 		{"add", _add},
 		{"sub", _sub},
 		{"pchar", _pchar},
+		{"pstr", _pstr},
 		{"mul", _mul},
 		{"mod", _mod},
 		{"div", _div},
